@@ -90,6 +90,15 @@ def load_data(city, month, day):
     df['Start Time'] = pd.to_datetime(df['Start Time'])
     df['month'] = df['Start Time'].dt.month
     df['day'] = df['Start Time'].dt.weekday
+    
+    #more efficent way:
+    df_parse_dates=pd.read_csv("chicago.csv",parse_dates=['Start Time','End Time'])
+    df_parse_dates['month'] = df_parse_dates['Start Time'].dt.month
+    df_parse_dates['day']=df_parse_dates['Start Time'].dt.weekday
+
+    
+
+
     if month != 'all':
         monthInt = MONTHS.index(month) + 1  # months are 1 based indexed
         df = df[df['month'] == monthInt]
@@ -137,8 +146,12 @@ def station_stats(df):
     # display most frequent combination of start station and end station trip
     print('most frequent combination of start station and end station trip is:\nStart Staion--> ' +
           str((df['Start Station']+'\nEnd Station--> '+df['End Station']).mode()[0]))
-
-    print("\nThis took %s seconds." % (time.time() - start_time))
+    
+    # more efficent way
+    df=df[['Start Station','End Station']].dropna().groupby(['Start Station','End Station']).size().sort_values(ascending=False)
+    startStation,endStation=df[df==df[0]].index[0]
+    print('most frequent combination of start station and end station trip is:\nStart Staion--> ' +
+          startStation+'\nEnd Station--> '+endStation)
     display_sample_data(df)
     print('-'*40)
 

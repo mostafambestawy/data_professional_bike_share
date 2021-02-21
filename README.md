@@ -66,3 +66,16 @@ conda install pandas
 
 ## FWD webinar
 https://udacity.zoom.us/rec/play/PqVVf8sWZBUwQEOpG3k3bf3xjpi4KQe11LXmiCqzmvBH7MDiYGW46xirPmluHRjUgF4MbqFF7xB8TMVg.aehZJjCBS2j2lzaS?autoplay=true&startTime=1613586554000
+
+
+## Review
+https://review.udacity.com/#!/reviews/2752171
+
+
+## webinar notes
+1 df=pd.read_csv("chicago.csv",parse_dates=['Start Time','End Time'])
+2 df=df['Start Time'].dropna()
+3 if df.empty:
+    print('empty data frame')
+  else:
+    copmlete coding
